@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let problemTitle = ''; // Variable to store the problem title
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         
         // Check if the active tab's URL is a LeetCode problem page
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response && response.title) {
                     // Update popup with the problem title
                     document.querySelector('h2').textContent = response.title;
+                    problemTitle = response.title; // Store the problem title
                 } else if (chrome.runtime.lastError) {
                     // Content script isn't available
                     document.querySelector('h2').textContent = 'Problem title not available.';
@@ -27,15 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle form submission
     document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
 
-        // Get form data
-        const formData = {
-            date: document.querySelector('input[type="date"]').value,
-            timeComplexity: document.querySelector('input[id="time-complexity"]').value,
-            spaceComplexity: document.querySelector('input[id="space-complexity"]').value,
-            notes: document.querySelector('textarea[id="notes"]').value
-        };
+        event.preventDefault();
 
         // UI elements for feedback
         const successMessage = document.getElementById('success-message');
@@ -45,31 +40,47 @@ document.addEventListener('DOMContentLoaded', () => {
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';
 
-        // Send data to your server
-        fetch('http://localhost:3000/api/problems/submitData', { // Replace with your server's URL
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            // Display success message
-            successMessage.style.display = 'block';
-            successMessage.textContent = 'Submission successful!';
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Display error message
-            errorMessage.style.display = 'block';
-            errorMessage.textContent = 'Error: Submission failed.';
+        // Get the URL of the current tab
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            let url = tabs[0].url; // URL of the current tab
+
+            // Create the formData object
+            const formData = {
+                problemName: problemTitle, // Include the problem name
+                url: url, 
+                date: document.querySelector('input[type="date"]').value,
+                timeComplexity: document.querySelector('#time-complexity').value,
+                spaceComplexity: document.querySelector('#space-complexity').value,
+                notes: document.querySelector('#notes').value
+            };
+
+            console.log(formData)
+
+            // Send data to your server
+            fetch('http://localhost:3000/api/problems/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text || 'Network response was not ok') });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Display success message
+                successMessage.style.display = 'block';
+                successMessage.textContent = 'Submission successful!';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                errorMessage.textContent = `Error: ${error.message || 'Submission failed.'}`;
+                errorMessage.style.display = 'block';
+            });
         });
     });
 });

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <h1>Problem Tracker</h1>
     <h2>Problem Name</h2>
     <div id="submission-info">
@@ -22,21 +23,22 @@
             <div class="timeC">
 
                 <p>Time Complexity</p>
-                <input type="text">
+                <input type="text" id="time-complexity">
+                
 
             </div>
 
             <div class="spaceC">
 
                 <p>Space Complexity</p>
-                <input type="text">
+                <input type="text" id="space-complexity">
 
             </div>
 
             <div class="notes">
                 
                 <p>Notes</p>
-                <input type="text">
+                <input type="text" id="notes">
             
             </div>
 
@@ -51,19 +53,13 @@
             <a href="https://example.com" target="_blank">Go to LeetCode</a>
         </div>
 
+        <div id="success-message" style="display: none; color: green;"></div>
+        <div id="error-message" style="display: none; color: red;"></div>
+
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="firebase-app.js"></script>
-    <script src="firebase-firestore.js"></script>
-
-    <!-- Firebase Initialization -->
-    <script>
-        const firebaseConfig = {
-            // Your Firebase configuration
-        };
-        firebase.initializeApp(firebaseConfig);
-    </script>
+    <div id="success-message" style="display: none; color: green;"></div>
+    <div id="error-message" style="display: none; color: red;"></div>
 
     <script src="popup.js"></script>
 </body>
