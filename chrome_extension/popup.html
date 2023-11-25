@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <title>Submission Tracker</title>
+    <link href="popup.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Problem Tracker</h1>
+    <h2>Problem Name</h2>
+    <div id="submission-info">
+        <form action="">
+
+            <div class="date">
+
+                <p>Date:</p>
+                <input type="date">
+
+            </div>
+
+            <div class="timeC">
+
+                <p>Time Complexity</p>
+                <input type="text">
+
+            </div>
+
+            <div class="spaceC">
+
+                <p>Space Complexity</p>
+                <input type="text">
+
+            </div>
+
+            <div class="notes">
+                
+                <p>Notes</p>
+                <input type="text">
+            
+            </div>
+
+            <input type="submit">
+        </form>
+
+        <div class="link-container">
+            <a href="https://example.com" target="_blank">Visit Leet Track</a>
+        </div>
+
+        <div class="link-container">
+            <a href="https://example.com" target="_blank">Go to LeetCode</a>
+        </div>
+
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="firebase-app.js"></script>
+    <script src="firebase-firestore.js"></script>
+
+    <!-- Firebase Initialization -->
+    <script>
+        const firebaseConfig = {
+            // Your Firebase configuration
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="popup.js"></script>
+</body>
+</html>

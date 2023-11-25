@@ -1,0 +1,98 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    max-width: 100%;
+    background-color: #262626; /* Dark background */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    overflow-y: auto;
+    min-width: 350px;
+    min-height: auto;
+    color: #FEFEFE; /* Light text color for readability */
+}
+
+h1, h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #FEFEFE; 
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* Form and Inputs Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Centering form contents */
+}
+
+input[type="date"],
+input[type="text"],
+textarea {
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #1F1F1F; /* Dark input fields */
+    color: #E0E0E0; /* Light text color */
+}
+
+input[type="submit"] {
+    padding: 10px 15px;
+    background-color: #29B442; /* Material Purple 500 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover {
+    background-color: #249839; /* Material Purple 700 */
+}
+
+/* Layout and Spacing */
+.date, .timeC, .spaceC, .notes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label, p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #E0E0E0;
+}
+
+/* Link at the bottom */
+.link-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link-container a {
+    color: #29B442; 
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.link-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsiveness and Adjustments */
+@media (max-width: 800px) {
+    body {
+        padding: 10px;
+    }
+}
