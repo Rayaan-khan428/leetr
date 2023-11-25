@@ -2,13 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 mongoose.set('strictQuery', false)
-const Problem = require('./Problem'); // Adjust the path as necessary
+const Problem = require('./Problem');
 const router = express.Router();
+app.use(express.json()); // To parse JSON request bodies
+
 
 const PORT = 3000;
 
 // get all the problems /api/problems
-router.get('/', async (req, res) => {
+
+app.get('/', (req, res) => {
+    res.send('Welcome to my LeetCode Tracker API!');
+});
+
+router.get('/test', async (req, res) => {
     try {
       const problems = await Problem.find();
       res.json(problems);
@@ -18,7 +25,7 @@ router.get('/', async (req, res) => {
 });
 
 // Add a new problem /api/problems
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
     const problem = new Problem({
       // assuming req.body contains all the necessary fields
       ...req.body
@@ -54,13 +61,18 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+app.use('/api/problems', router);
+
 const start = async() => {
     
-    await mongoose.connect('mongodb+srv://mongo:rayaan@cluster0.ezfpo5q.mongodb.net/?retryWrites=true&w=majority');
-
-    app.listen(PORT, () => {
-        console.log('App listening on port');
-    })
+    try {
+        await mongoose.connect('mongodb+srv://mongo:rayaan@cluster0.ezfpo5q.mongodb.net/LeetcodeQuestions?retryWrites=true&w=majority');
+        app.listen(PORT, () => {
+            console.log(`App listening on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error('Database connection error:', err);
+    }
 }
   
 start();
