@@ -36,5 +36,40 @@ document.addEventListener('DOMContentLoaded', () => {
             spaceComplexity: document.querySelector('input[id="space-complexity"]').value,
             notes: document.querySelector('textarea[id="notes"]').value
         };
+
+        // UI elements for feedback
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        // Hide messages initially
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+
+        // Send data to your server
+        fetch('http://localhost:3000/api/problems/submitData', { // Replace with your server's URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // Display success message
+            successMessage.style.display = 'block';
+            successMessage.textContent = 'Submission successful!';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Display error message
+            errorMessage.style.display = 'block';
+            errorMessage.textContent = 'Error: Submission failed.';
+        });
     });
 });
