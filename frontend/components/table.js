@@ -8,8 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TableVirtuoso } from 'react-virtuoso';
 
-// hard code data (remove)
 const sample = [
+  // Assuming the first element of each array is the 'title'
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
   ['Ice cream sandwich', 237, 9.0, 37, 4.3],
   ['Eclair', 262, 16.0, 24, 6.0],
@@ -19,8 +19,8 @@ const sample = [
 
 // datakeys (may have to change based on database)
 function createData(title, difficulty, notes, timeComplexity, spaceComplexity, attempts, success, lastAttempt, nextAttempt) {
-  return { title, difficulty, notes, timeComplexity, spaceComplexity, attempts, success, lastAttempt, nextAttempt };
-}
+    return { title, difficulty, notes, timeComplexity, spaceComplexity, attempts, success, lastAttempt, nextAttempt };
+  }
 
 // width can be changed based on length of items
 const columns = [
@@ -80,9 +80,11 @@ const columns = [
 ];
 
 const rows = Array.from({ length: 200 }, (_, index) => {
-  const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-  return createData(index, ...randomSelection);
-});
+    const randomSelection = sample[Math.floor(Math.random() * sample.length)];
+    return createData(...randomSelection, index); // Adjusted order to match createData function
+  });
+  
+  
 
 const VirtuosoTableComponents = {
   Scroller: React.forwardRef((props, ref) => (
@@ -130,16 +132,17 @@ function rowContent(_index, row) {
     </React.Fragment>
   );
 }
+export { rows };
 
-export default function ReactVirtualizedTable() {
-  return (
-    <Paper style={{ height: 400, width: '100%' }}>
-      <TableVirtuoso
-        data={rows}
-        components={VirtuosoTableComponents}
-        fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
-      />
-    </Paper>
-  );
-}
+export default function ReactVirtualizedTable({ data }) { // Accept data as a prop
+    return (
+      <Paper style={{ height: 400, width: '100%' }}>
+        <TableVirtuoso
+          data={data} // Use the passed data
+          components={VirtuosoTableComponents}
+          fixedHeaderContent={fixedHeaderContent}
+          itemContent={rowContent}
+        />
+      </Paper>
+    );
+  }
