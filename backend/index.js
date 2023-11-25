@@ -32,6 +32,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route for chrome extension
+app.post('/submitData', (req, res) => {
+    db.collection('problems').insertOne(req.body, (err, result) => {
+        if (err) {
+            res.status(500).send('Error inserting data');
+        } else {
+            res.status(200).send('Data inserted successfully');
+        }
+    });
+});
+
 // Route to add a new problem
 router.post('/add', async (req, res) => {
     const problem = new Problem({ ...req.body });
