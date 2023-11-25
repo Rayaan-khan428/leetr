@@ -1,26 +1,68 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+mongoose.set('strictQuery', false)
+const Problem = require('./Problem'); // Adjust the path as necessary
+const router = express.Router();
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://mongo:KERBALMAN3212-@cluster0.ezfpo5q.mongodb.net/?retryWrites=true&w=majority";
+const PORT = 3000;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+// get all the problems /api/problems
+router.get('/', async (req, res) => {
+    try {
+      const problems = await Problem.find();
+      res.json(problems);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+// Add a new problem /api/problems
+router.post('/', async (req, res) => {
+    const problem = new Problem({
+      // assuming req.body contains all the necessary fields
+      ...req.body
+    });
+  
+    try {
+      const newProblem = await problem.save();
+      res.status(201).json(newProblem);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+});
+  
+// Update an Existing Problem /api/problems/:id
+router.put('/:id', async (req, res) => {
+    try {
+      const updatedProblem = await Problem.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedProblem) return res.status(404).json({ message: 'Problem not found' });
+      res.json(updatedProblem);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+});
+
+// Delete a Problem /api/problems/:id
+router.delete('/:id', async (req, res) => {
+    try {
+      const problem = await Problem.findByIdAndDelete(req.params.id);
+      if (!problem) return res.status(404).json({ message: 'Problem not found' });
+      res.json({ message: 'Problem deleted' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+});
+
+const start = async() => {
+    
+    await mongoose.connect('mongodb+srv://mongo:rayaan@cluster0.ezfpo5q.mongodb.net/?retryWrites=true&w=majority');
+
+    app.listen(PORT, () => {
+        console.log('App listening on port');
+    })
 }
-run().catch(console.dir);
+  
+start();
+  
+
