@@ -4,10 +4,16 @@ const Problem = require('./Problem'); // Import the Problem model
 
 const app = express();
 const router = express.Router();
+const cors = require('cors');
 const PORT = 3000;
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+// Use CORS middleware
+app.use(cors({
+    origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl' // Replace with your Chrome extension's ID
+}));
 
 // Connect to MongoDB
 mongoose.set('strictQuery', false);
@@ -33,7 +39,7 @@ router.get('/', async (req, res) => {
 });
 
 // Route for chrome extension
-app.post('/submitData', (req, res) => {
+app.post('/submitData', cors(), (req, res) => {
     db.collection('problems').insertOne(req.body, (err, result) => {
         if (err) {
             res.status(500).send('Error inserting data');

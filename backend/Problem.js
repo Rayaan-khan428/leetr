@@ -2,15 +2,15 @@
 const mongoose = require('mongoose');
 
 const problemSchema = new mongoose.Schema({
-  problemName: String,
-  difficulty: String,
+  problemName: { type: String, required: true },
+  difficulty: String, 
   url: String,
   notes: String,
   timeComplexity: String,
   spaceComplexity: String,
-  attempts: Number,
-  success: Number,
-  lastAttempted: Date,
+  attempts: { type: Number, default: 0 },
+  success: { type: Number, default: 0 },
+  lastAttempted: { type: Date, default: Date.now },
   nextScheduled: Date
 });
 
