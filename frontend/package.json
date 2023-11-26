@@ -14,9 +14,15 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
     "@mui/x-data-grid": "^6.18.2",
+<<<<<<< HEAD
     "framer-motion": "^10.16.5",
+=======
+    "next": "14.0.3",
+    "plotly.js": "^2.27.1",
+>>>>>>> 4915873b55b1e0a71c7f612a4df28909c6e95334
     "react": "^18",
     "react-dom": "^18",
+    "react-plotly.js": "^2.6.0",
     "react-virtuoso": "^4.6.2"
   },
   "devDependencies": {
