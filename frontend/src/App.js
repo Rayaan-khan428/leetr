@@ -7,7 +7,8 @@ import Nav from './components/Nav';
 function App() {
   return (
     <ChakraProvider>
-      <ProblemsTable/><Nav/>
+      <Nav/>
+      <ProblemsTable/>
     </ChakraProvider>
   );
 }
