@@ -12,23 +12,19 @@ import {
   Stack,
   Image,
   useColorModeValue,
-  Divider,
 } from '@chakra-ui/react';
 import { FaChartLine, FaPuzzlePiece, FaUsers, FaRegSmileBeam } from 'react-icons/fa';
 
-// Example feature data
 const features = [
-  // ... same features array as before ...
+  { icon: FaChartLine, title: 'Custom Analytics', description: 'Gain insights into your coding habits and progress.' },
+  { icon: FaPuzzlePiece, title: 'Problem Organization', description: 'Leverage spaced repitition to never forget a problem.' },
+  { icon: FaUsers, title: 'Community Forums', description: 'Get SMS Texts when it is time to repeat a problem.' },
+  { icon: FaRegSmileBeam, title: 'Interactive Learning', description: 'Interactive challenges to enhance your skills.' },
 ];
 
-// Example testimonials data (replace with real data)
 const testimonials = [
-  {
-    avatar: 'https://via.placeholder.com/150',
-    name: 'John Doe',
-    content: 'This app has transformed the way I prepare for coding interviews.',
-  },
-  // ... additional testimonials ...
+  { avatar: 'https://via.placeholder.com/150', name: 'Jane Doe', content: 'This app revolutionized my learning process.' },
+  { avatar: 'https://via.placeholder.com/150', name: 'Mike Chen', content: 'The community support is just amazing.' },
 ];
 
 export default function Homepage() {
@@ -37,47 +33,29 @@ export default function Homepage() {
 
   return (
     <Box bg={bgColor}>
-      <Container maxW={'7xl'} py={12} as={Stack} spacing={12}>
-        
+      <Container maxW={'7xl'} py={12}>
+
         {/* Hero Section */}
         <Stack direction={{ base: 'column', md: 'row' }} spacing={6} align={'center'} justify={'space-between'}>
-          <VStack align={'start'} maxW={'xl'} spacing={5}>
-            <Heading fontSize={{ base: '3xl', md: '5xl' }} textAlign={{ base: 'center', md: 'left' }}>
-              A Tool to Track Your Leetcode Stats
-            </Heading>
-            <Text fontSize={'xl'} color={textColor} textAlign={{ base: 'center', md: 'left' }}>
-              A clean dashboard to track and organize your leetcode stats, notes, and usage.
+          <VStack align={'start'} spacing={5}>
+            <Heading fontSize={{ base: '3xl', md: '5xl' }}>Master Coding with Leetr</Heading>
+            <Text fontSize={'xl'} color={textColor}>
+              Your personal dashboard for tracking coding progress and more.
             </Text>
-            <Button size={'lg'} colorScheme={'blue'}>
-              Get Started
-            </Button>
-            <HStack spacing={2}>
-              <Text fontSize={'sm'} color={textColor}>
-                Already a member?
-              </Text>
-              <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-                Sign in
-              </Button>
-            </HStack>
+            <Button colorScheme={'blue'} size={'lg'}>Get Started</Button>
           </VStack>
-          <Box flexShrink={0}>
-            <Image
-              borderRadius={15}
-              src='https://via.placeholder.com/400'
-              alt='Hero Image'
-              objectFit='cover'
-            />
-          </Box>
+          <Image
+            borderRadius={15}
+            src='https://via.placeholder.com/400'
+            alt='Coding Illustration'
+            objectFit='cover'
+          />
         </Stack>
 
-        <Divider my={10} />
-
         {/* Features Section */}
-        <Box as={'section'} pt={10}>
-          <Heading as={'h3'} fontSize={'2xl'} mb={6} textAlign={'center'}>
-            Why Choose Leetr?
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+        <Box as={'section'} py={12}>
+          <Heading as={'h3'} fontSize={'2xl'} mb={6} textAlign={'center'}>Key Features</Heading>
+          <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10}>
             {features.map((feature, index) => (
               <VStack key={index} align={'start'} spacing={3}>
                 <Icon as={feature.icon} w={10} h={10} color={'blue.500'} />
@@ -88,42 +66,18 @@ export default function Homepage() {
           </SimpleGrid>
         </Box>
 
-        <Divider my={10} />
-
         {/* Testimonials Section */}
-        <Box as={'section'} pt={10}>
-          <Heading as={'h3'} fontSize={'2xl'} mb={6} textAlign={'center'}>
-            Testimonials
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+        <Box as={'section'} py={12} bg={useColorModeValue('white', 'gray.800')}>
+          <Heading as={'h3'} fontSize={'2xl'} mb={6} textAlign={'center'}>Testimonials</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} px={12}>
             {testimonials.map((testimonial, index) => (
-              <VStack key={index} align={'start'} spacing={3}>
-                <Image
-                  borderRadius={'full'}
-                  boxSize={'50px'}
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                />
+              <VStack key={index} align={'start'} spacing={3} bg={bgColor} p={6} borderRadius={'md'} boxShadow={'md'}>
+                <Image borderRadius={'full'} boxSize={'50px'} src={testimonial.avatar} alt={testimonial.name} />
                 <Text fontWeight={600}>{testimonial.name}</Text>
                 <Text color={textColor}>"{testimonial.content}"</Text>
               </VStack>
             ))}
           </SimpleGrid>
-        </Box>
-
-        <Divider my={10} />
-
-        {/* Call to Action Section */}
-        <Box as={'section'} pt={10} textAlign={'center'}>
-          <Heading as={'h3'} fontSize={'2xl'} mb={6}>
-            Join Our Community
-          </Heading>
-          <Text fontSize={'xl'} color={textColor} mb={6}>
-            Become a part of the Leetr community and take your coding skills to the next level.
-          </Text>
-          <Button size={'lg'} colorScheme={'orange'}>
-            Join Now
-          </Button>
         </Box>
 
       </Container>

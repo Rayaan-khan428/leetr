@@ -50,7 +50,7 @@ export default function Nav() {
       justify="space-between"
       wrap="wrap"
       w="100%"
-      mb={8}
+      mb={0}
       p={4}
       bg={useColorModeValue('gray.100', 'gray.900')}
       color={useColorModeValue('gray.600', 'white')}
