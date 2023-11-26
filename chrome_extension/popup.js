@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(formData)
 
             // Send data to your server
-            fetch('http://localhost:3000/api/problems/add', {
+            fetch('http://localhost:3000/api/problems/submitSolution', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
