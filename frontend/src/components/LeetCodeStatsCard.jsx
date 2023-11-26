@@ -5,7 +5,7 @@ import { Box, Stat, StatLabel, StatNumber, StatHelpText, StatGroup, Text } from 
 const LeetCodeStatsCard = ({ stats }) => {
 
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md">
+    <Box height="100%" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md">
       <Box p={4} align="center">
         
         <Text textAlign="center" mb={2} fontSize="lg" fontWeight="bold">

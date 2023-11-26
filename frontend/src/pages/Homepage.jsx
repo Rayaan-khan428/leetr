@@ -14,21 +14,22 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaChartLine, FaPuzzlePiece, FaUsers, FaRegSmileBeam } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const features = [
   { icon: FaChartLine, title: 'Custom Analytics', description: 'Gain insights into your coding habits and progress.' },
-  { icon: FaPuzzlePiece, title: 'Problem Organization', description: 'Leverage spaced repitition to never forget a problem.' },
-  { icon: FaUsers, title: 'Community Forums', description: 'Get SMS Texts when it is time to repeat a problem.' },
-  { icon: FaRegSmileBeam, title: 'Interactive Learning', description: 'Interactive challenges to enhance your skills.' },
+  { icon: FaPuzzlePiece, title: 'Spaced Repitition', description: 'Leverage spaced repitition to never forget a problem.' },
+  { icon: FaUsers, title: 'SMS Texts', description: 'Get SMS Texts when it is time to repeat a problem.' },
+  { icon: FaUsers, title: 'SMS Texts', description: 'Get SMS Texts when it is time to repeat a problem.' },
 ];
 
 const testimonials = [
-  { avatar: 'https://via.placeholder.com/150', name: 'Jane Doe', content: 'This app revolutionized my learning process.' },
-  { avatar: 'https://via.placeholder.com/150', name: 'Mike Chen', content: 'The community support is just amazing.' },
+  { avatar: 'https://pbs.twimg.com/media/Fze4WD3aIAAbMeN?format=jpg&name=4096x4096', name: 'Neetcode', content: "If this doesn't get Y-Comb backed, IDEK" },
+  { avatar: 'https://yt3.googleusercontent.com/ytc/APkrFKZkincAm9JfVMQKtktjhExR_7wxnPtQTnYb_-kR=s900-c-k-c0x00ffffff-no-rj', name: 'Abdul Bari', content: 'Friends, this website is optimal for gains' },
 ];
 
 export default function Homepage() {
-  const bgColor = useColorModeValue('gray.100', 'gray.700');
+  const bgColor = useColorModeValue('white.100', 'white.700');
   const textColor = useColorModeValue('gray.600', 'gray.200');
 
   return (
@@ -42,11 +43,13 @@ export default function Homepage() {
             <Text fontSize={'xl'} color={textColor}>
               Your personal dashboard for tracking coding progress and more.
             </Text>
-            <Button colorScheme={'blue'} size={'lg'}>Get Started</Button>
+            <Link to='/main'>
+            <Button colorScheme={'blue'} size={'lg'}>Go to Dashboard</Button>
+            </Link>
           </VStack>
           <Image
             borderRadius={15}
-            src='https://via.placeholder.com/400'
+            src='https://img.freepik.com/premium-photo/database-programmer-playing-guitar-with-keyboard-writing-code-with-cloud-computing-programming-html-source-cheerful-smiling-developer-having-fun-acting-silly-office_482257-59031.jpg'
             alt='Coding Illustration'
             objectFit='cover'
           />

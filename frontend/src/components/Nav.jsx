@@ -52,7 +52,7 @@ export default function Nav() {
       w="100%"
       mb={0}
       p={4}
-      bg={useColorModeValue('gray.100', 'gray.900')}
+      bg={useColorModeValue('white.100', 'white.900')}
       color={useColorModeValue('gray.600', 'white')}
     >
       <Link to="/">

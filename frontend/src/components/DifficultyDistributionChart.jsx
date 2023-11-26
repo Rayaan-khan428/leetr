@@ -41,7 +41,7 @@ const DifficultyDistributionChart = () => {
     const chartBgColor = useColorModeValue('white', 'gray.800');
 
     return (
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md" bg={chartBgColor}>
+        <Box height="100%" borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md" bg={chartBgColor}>
             <StatGroup>
                 <Stat>
                     <StatLabel textAlign="center" mb={2} fontSize="lg" fontWeight="bold">

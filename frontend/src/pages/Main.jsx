@@ -26,11 +26,11 @@ const LeetCodeStatsContainer = ({ username }) => {
     }, [username]);
   
     if (isLoading) {
-      return <div>Loading...</div>; // Or any other loading indicator
+      return <div>Loading...</div>; 
     }
   
     if (!stats) {
-      return <div>Error or no data</div>; // Error handling or no data message
+      return <div>Error or no data</div>;
     }
   
     return <LeetCodeStatsCard stats={stats} />;
