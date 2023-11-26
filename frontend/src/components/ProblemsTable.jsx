@@ -18,7 +18,6 @@ const ProblemsTable = () => {
           <Tr>
             <Th>Problem Name</Th>
             <Th>Difficulty</Th>
-            <Th>URL</Th>
             <Th>Notes</Th>
             <Th>Time Complexity</Th>
             <Th>Space Complexity</Th>
@@ -31,9 +30,10 @@ const ProblemsTable = () => {
         <Tbody>
           {problems.map(problem => (
             <Tr key={problem._id}>
-              <Td>{problem.problemName}</Td>
+              <Td>
+                <Link href={problem.url} isExternal>{problem.problemName}</Link>
+              </Td>
               <Td>{problem.difficulty}</Td>
-              <Td><Link href={problem.url} isExternal>{problem.url}</Link></Td>
               <Td>{problem.notes}</Td>
               <Td>{problem.timeComplexity}</Td>
               <Td>{problem.spaceComplexity}</Td>
