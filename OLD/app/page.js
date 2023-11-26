@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import PrimarySearchAppBar from "@/components/PrimarySearchAppBar";
-import ReactVirtualizedTable, { rows } from "@/components/ReactVirtualizedTable";
+import React, { useState, useEffect } from 'react';
+import PrimarySearchAppBar from "/components/PrimarySearchAppBar";
+import ReactVirtualizedTable, { rows } from "/components/ReactVirtualizedTable";
+import axios from 'axios'
 
 export default function Home() {
   // State for managing dark mode
@@ -10,15 +11,15 @@ export default function Home() {
   // State for handling search query
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Function to filter data based on search query
-  const getFilteredData = () => {
-    return rows.filter(item => 
-      item.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  };
+  const [data, setData] = useState([]);
 
-  // Filtered data for the table
-  const filteredData = getFilteredData();
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/problems')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   return (
     <div className={`flex flex-col min-h-screen w-full ${darkMode ? 'bg-[rgb(26,26,26)] text-white' : 'bg-white text-black'}`}>
@@ -34,7 +35,7 @@ export default function Home() {
 
       {/* Main Content with Virtualized Table */}
       <main className="flex-grow p-14">
-        <ReactVirtualizedTable data={filteredData} darkMode={darkMode} />
+        <ReactVirtualizedTable data={data} darkMode={darkMode} />
       </main>
     </div>
   );
