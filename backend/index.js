@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl' // Replace with your Chrome extension's ID
+    origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl'
 }));
 
 // Connect to MongoDB

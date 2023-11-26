@@ -22,7 +22,7 @@ function createData(title, difficulty, notes, timeComplexity, spaceComplexity, a
 }
 
 const columns = [
-  { width: 200, label: 'Title', dataKey: 'title' },
+  { width: 200, label: 'Title', dataKey: 'problemName' },
   { width: 120, label: 'Difficulty', dataKey: 'difficulty', numeric: false },
   { width: 120, label: 'Notes', dataKey: 'notes', numeric: false },
   { width: 120, label: 'Time Complexity', dataKey: 'timeComplexity', numeric: false },
@@ -82,7 +82,7 @@ function rowContent(index, row, darkMode) {
             backgroundColor: darkMode ? backgroundColor : '#fff' // Background color based on row index and dark mode
           }}
         >
-          {row[column.dataKey]}
+          {typeof row[column.dataKey] === 'object' ? row[column.dataKey].toLocaleString() : row[column.dataKey]}
         </TableCell>
       ))}
     </React.Fragment>
@@ -93,6 +93,7 @@ function rowContent(index, row, darkMode) {
 export { rows };
 
 export default function ReactVirtualizedTable({ data, darkMode }) {
+  console.log(data);
   // The useTheme hook must be called inside a component or another hook.
   const theme = useTheme();
 
