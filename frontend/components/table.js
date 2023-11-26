@@ -71,14 +71,20 @@ function fixedHeaderContent(darkMode) {
   );
 }
 
-function rowContent(_index, row, darkMode) {
+function rowContent(index, row, darkMode) {
+  // Determine the background color based on the row index
+  const backgroundColor = index % 2 === 0 ? 'rgb(26,26,26)' : 'rgb(42,42,42)';
+  
   return (
     <React.Fragment>
       {columns.map((column) => (
         <TableCell
           key={column.dataKey}
           align={column.numeric || false ? 'right' : 'left'}
-          sx={{ color: darkMode ? '#fff' : '#000' }} // Conditional text color for cells
+          sx={{
+            color: darkMode ? '#fff' : '#000', // Text color based on dark mode
+            backgroundColor: darkMode ? backgroundColor : '#fff' // Background color based on row index and dark mode
+          }}
         >
           {row[column.dataKey]}
         </TableCell>
@@ -86,6 +92,7 @@ function rowContent(_index, row, darkMode) {
     </React.Fragment>
   );
 }
+
 
 export { rows };
 
@@ -102,7 +109,7 @@ export default function ReactVirtualizedTable({ data, darkMode }) {
   // This is your Paper component that wraps the TableVirtuoso.
   return (
     <Paper sx={{
-      height: 'calc(100% - ' + theme.spacing(2) + ')', // Adjust for padding
+      height: 650, // Ensure this calculates to a valid CSS value
       width: '100%',
       bgcolor: darkMode ? 'grey.900' : 'grey.50',
       color: darkMode ? 'grey.50' : 'grey.900',

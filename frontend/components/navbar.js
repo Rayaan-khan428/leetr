@@ -146,7 +146,7 @@ export default function PrimarySearchAppBar({ darkMode, handleThemeChange, searc
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: darkMode ? '#212121' : '#eee', color: darkMode ? 'white' : 'black' }}>
+<AppBar position="static" sx={{ backgroundColor: darkMode ? 'rgb(26,26,26)' : '#eee', color: darkMode ? 'white' : 'black' }}>
         <Toolbar>
           <IconButton
             size="large"

@@ -4,13 +4,14 @@ import PrimarySearchAppBar from "@/components/navbar";
 import ReactVirtualizedTable, { rows } from "@/components/table";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  // Set the initial darkMode state to true
+  const [darkMode, setDarkMode] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredData = rows.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <div className={`flex flex-col h-screen w-full ${darkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <div className={`flex flex-col min-h-screen w-full ${darkMode ? 'bg-[rgb(26,26,26)] text-white' : 'bg-white text-black'}`}>
       <header className="w-full">
         <PrimarySearchAppBar 
           darkMode={darkMode} 
@@ -19,9 +20,9 @@ export default function Home() {
           onSearchChange={setSearchQuery}
         />
       </header>
-      <main className="flex-grow p-4 overflow-hidden">
+      <div className="flex-grow p-14">
         <ReactVirtualizedTable data={filteredData} darkMode={darkMode} />
-      </main>
+      </div>
     </div>
   );
 }
