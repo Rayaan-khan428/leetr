@@ -7,17 +7,14 @@ const router = express.Router();
 const cors = require('cors');
 const PORT = 3000;
 
+// const allowedOrigins = ['chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl', 'http://localhost:3001'];
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Use CORS middleware
-app.use(cors({
-    origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl'
-}));
+// Use CORS middleware to allow all origins
+app.use(cors());
 
-app.use(cors({
-    origin: 'http://localhost:3001'
-}));
 
 
 // Connect to MongoDB
@@ -85,6 +82,7 @@ router.post('/submitSolution', async (req, res) => {
             // Problem exists, update it
             problem.attempts += 1;
             problem.notes = solutionData.notes || problem.notes;
+            problem.difficulty = solutionData.difficulty || problem.difficulty;
             problem.timeComplexity = solutionData.timeComplexity || problem.timeComplexity;
             problem.spaceComplexity = solutionData.spaceComplexity || problem.spaceComplexity;
             problem.lastAttempted = solutionData.date || new Date();

@@ -35,7 +35,8 @@ form {
 
 input[type="date"],
 input[type="text"],
-textarea {
+textarea,
+select {
     padding: 10px;
     border: 1px solid #333;
     border-radius: 4px;
@@ -62,7 +63,7 @@ input[type="submit"]:hover {
 }
 
 /* Layout and Spacing */
-.date, .timeC, .spaceC, .notes {
+.date, .timeC, .spaceC, .notes, .difficulty { /* Add .difficulty class */
     display: flex;
     flex-direction: column;
     width: 100%;
