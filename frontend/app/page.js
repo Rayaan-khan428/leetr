@@ -31,7 +31,7 @@ export default function Home() {
           onSearchChange={setSearchQuery}
         />
       </header>
-
+    
       {/* Main Content with Virtualized Table */}
       <main className="flex-grow p-14">
         <ReactVirtualizedTable data={filteredData} darkMode={darkMode} />
