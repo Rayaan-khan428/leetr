@@ -29,12 +29,17 @@ const DifficultyDistributionChart = () => {
             .catch(err => console.error('Error fetching data:', err));
     }, []);
 
+    const difficultyColors = {
+        'Easy': '#68D391',
+        'Medium': '#FAC31C',
+        'Hard': '#FF5966'
+    };
+
     const data = {
         labels: distribution.map(item => item.difficulty),
         datasets: [{
             data: distribution.map(item => item.count),
-            backgroundColor: ['#68D391', '#4299E1', '#ED8936'], // Using Chakra UI color palette
-            hoverBackgroundColor: ['#68D391', '#4299E1', '#ED8936']
+            backgroundColor: distribution.map(item => difficultyColors[item.difficulty]),
         }]
     };
 

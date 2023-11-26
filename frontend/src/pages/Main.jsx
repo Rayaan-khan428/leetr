@@ -38,7 +38,10 @@ const LeetCodeStatsContainer = ({ username }) => {
 
 
 const Main = ({ username }) => {
-  return (
+  return ( 
+  <>
+
+
     <Flex
       direction={["column", "row"]}
       wrap="wrap"
@@ -46,14 +49,22 @@ const Main = ({ username }) => {
       align="stretch"
       my={4} p={4}
     >
+
       <Box flex="1" minW={["100%", "360px"]} maxW={["100%", "49%"]} p={2}>
         <DifficultyDistributionChart />
       </Box>
+
       <Box flex="1" minW={["100%", "360px"]} maxW={["100%", "49%"]} p={2} h="auto">
         <LeetCodeStatsContainer username={username} />
       </Box>
-      <ProblemsTable />
+
     </Flex>
+
+    <Box display="flex" justifyContent="center" my={4}>
+        <ProblemsTable />
+    </Box>
+      
+  </>
   );
 };
 
