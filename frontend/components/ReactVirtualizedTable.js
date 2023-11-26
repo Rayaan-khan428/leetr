@@ -39,15 +39,11 @@ const rows = Array.from({ length: 200 }, (_, index) => {
 });
 
 const VirtuosoTableComponents = {
-  Scroller: React.forwardRef((props, ref) => (
-    <TableContainer component={Paper} {...props} ref={ref} />
-  )),
   Table: (props) => (
     <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
   ),
   TableHead,
-  TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
-  TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
+  TableRow: ({ item: _item, ...props }) => <TableRow {...props} />
 };
 
 function fixedHeaderContent(darkMode) {
