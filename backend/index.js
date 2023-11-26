@@ -51,6 +51,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/difficultyDistribution', async (req, res) => {
+    try {
+        const difficultyDistribution = await Problem.aggregate([
+            {
+                $group: {
+                    _id: "$difficulty",
+                    count: { $sum: 1 }  // Count the number of occurrences
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    difficulty: "$_id",
+                    count: 1
+                }
+            }
+        ]);
+
+        res.json(difficultyDistribution);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 router.post('/submitSolution', async (req, res) => {
     const { problemName, ...solutionData } = req.body;
     
