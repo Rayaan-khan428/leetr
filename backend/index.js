@@ -16,7 +16,7 @@ app.use(cors({
 }));
 
 app.use(cors({
-    origin: 'http://localhost:3001' // Replace with the actual port your React app is running on
+    origin: 'http://localhost:3001'
 }));
 
 

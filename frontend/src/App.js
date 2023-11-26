@@ -3,11 +3,14 @@ import './App.css';
 import { ChakraProvider } from '@chakra-ui/react'
 import ProblemsTable from './components/ProblemsTable';
 import Nav from './components/Nav';
+import LargeWithNewsletter from './components/LargeWithNewsletter';
 
 function App() {
   return (
     <ChakraProvider>
-      <ProblemsTable/><Nav/>
+      <Nav/>
+      <ProblemsTable/>
+      <LargeWithNewsletter/>
     </ChakraProvider>
   );
 }
