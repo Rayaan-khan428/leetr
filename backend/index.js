@@ -28,6 +28,14 @@ const start = async () => {
     }
 };
 
+// Calcualte the next practice date
+function calculateNextPracticeDate(attemptCount, baseIntervalDays = 1, growthFactor = 2) {
+    const interval = baseIntervalDays * Math.pow(growthFactor, attemptCount - 1);
+    const nextPracticeDate = new Date();
+    nextPracticeDate.setDate(nextPracticeDate.getDate() + interval);
+    return nextPracticeDate;
+}
+
 // Route to get all problems
 router.get('/', async (req, res) => {
     try {
@@ -37,6 +45,44 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+router.post('/submitSolution', async (req, res) => {
+    const { problemName, ...solutionData } = req.body;
+    
+    try {
+        let problem = await Problem.findOne({ problemName: problemName });
+
+        if (problem) {
+            // Problem exists, update it
+            problem.attempts += 1;
+            problem.notes = solutionData.notes || problem.notes;
+            problem.timeComplexity = solutionData.timeComplexity || problem.timeComplexity;
+            problem.spaceComplexity = solutionData.spaceComplexity || problem.spaceComplexity;
+            problem.lastAttempted = solutionData.date || new Date();
+
+            // Calculate the next practice date
+            problem.nextScheduled = calculateNextPracticeDate(problem.attempts);
+
+            await problem.save();
+        } else {
+            // Problem does not exist, create a new one
+            problem = new Problem({ 
+                problemName, 
+                ...solutionData, 
+                attempts: 1,
+                lastAttempted: solutionData.date || new Date(),
+                nextScheduled: calculateNextPracticeDate(1)
+            });
+            await problem.save();
+        }
+
+        res.status(201).json(problem);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+
 
 // Route for chrome extension
 app.post('/submitData', cors(), (req, res) => {
