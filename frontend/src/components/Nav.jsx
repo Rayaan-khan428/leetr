@@ -14,12 +14,9 @@ import {
   Center,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom';
 
-interface Props {
-  children: React.ReactNode
-}
-
-const NavLink = ({ children }: Props) => (
+const NavLink = ({ children }) => (
   <Box
     as="a"
     px={2}
@@ -50,15 +47,17 @@ export default function Nav() {
       bg={useColorModeValue('gray.100', 'gray.900')}
       color={useColorModeValue('gray.600', 'white')}
     >
-      <Box
-        fontFamily="'Orbitron', sans-serif"
-        fontWeight="700"
-        fontSize="40px"
-        display="inline-block"
-      >
-        Leetr
-      </Box>
-
+      <Link to="/">
+        <Box
+          fontFamily="'Orbitron', sans-serif"
+          fontWeight="700"
+          fontSize="40px"
+          display="inline-block"
+        >
+          Leetr
+        </Box>
+      </Link>
+      
       <Stack direction="row" spacing={7} align="center">
         <Button onClick={toggleColorMode}>
           {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}

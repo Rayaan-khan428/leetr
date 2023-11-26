@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
+import { Box, Stat, StatLabel, StatGroup, useColorModeValue } from '@chakra-ui/react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -32,16 +33,26 @@ const DifficultyDistributionChart = () => {
         labels: distribution.map(item => item.difficulty),
         datasets: [{
             data: distribution.map(item => item.count),
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+            backgroundColor: ['#68D391', '#4299E1', '#ED8936'], // Using Chakra UI color palette
+            hoverBackgroundColor: ['#68D391', '#4299E1', '#ED8936']
         }]
     };
 
+    const chartBgColor = useColorModeValue('white', 'gray.800');
+
     return (
-        <div>
-            <h2>Difficulty Distribution</h2>
-            <Pie data={data} />
-        </div>
+        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} boxShadow="md" bg={chartBgColor}>
+            <StatGroup>
+                <Stat>
+                    <StatLabel textAlign="center" mb={2} fontSize="lg" fontWeight="bold">
+                        Difficulty Distribution
+                    </StatLabel>
+                </Stat>
+            </StatGroup>
+            <Box height="300px" width="300px" mx="auto">
+                <Pie data={data} options={{ maintainAspectRatio: false }} />
+            </Box>
+        </Box>
     );
 }
 
