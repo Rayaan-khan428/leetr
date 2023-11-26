@@ -7,17 +7,14 @@ const router = express.Router();
 const cors = require('cors');
 const PORT = 3000;
 
+// const allowedOrigins = ['chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl', 'http://localhost:3001'];
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Use CORS middleware
-app.use(cors({
-    origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl'
-}));
+// Use CORS middleware to allow all origins
+app.use(cors());
 
-app.use(cors({
-    origin: 'http://localhost:3001' // Replace with the actual port your React app is running on
-}));
 
 
 // Connect to MongoDB
@@ -51,6 +48,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/difficultyDistribution', async (req, res) => {
+    try {
+        const difficultyDistribution = await Problem.aggregate([
+            {
+                $group: {
+                    _id: "$difficulty",
+                    count: { $sum: 1 }  // Count the number of occurrences
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    difficulty: "$_id",
+                    count: 1
+                }
+            }
+        ]);
+
+        res.json(difficultyDistribution);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 router.post('/submitSolution', async (req, res) => {
     const { problemName, ...solutionData } = req.body;
     
@@ -61,6 +82,7 @@ router.post('/submitSolution', async (req, res) => {
             // Problem exists, update it
             problem.attempts += 1;
             problem.notes = solutionData.notes || problem.notes;
+            problem.difficulty = solutionData.difficulty || problem.difficulty;
             problem.timeComplexity = solutionData.timeComplexity || problem.timeComplexity;
             problem.spaceComplexity = solutionData.spaceComplexity || problem.spaceComplexity;
             problem.lastAttempted = solutionData.date || new Date();

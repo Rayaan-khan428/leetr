@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 date: document.querySelector('input[type="date"]').value,
                 timeComplexity: document.querySelector('#time-complexity').value,
                 spaceComplexity: document.querySelector('#space-complexity').value,
+                difficulty: document.querySelector('#difficulty').value,                // might be source of issue
                 notes: document.querySelector('#notes').value
             };
 
