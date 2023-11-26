@@ -1,3 +1,7 @@
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const { Infobip, AuthType } = require('@infobip-api/sdk');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const Problem = require('./Problem'); // Import the Problem model
@@ -109,8 +113,6 @@ router.post('/submitSolution', async (req, res) => {
     }
 });
 
-
-
 // Route for chrome extension
 app.post('/submitData', cors(), (req, res) => {
     db.collection('problems').insertOne(req.body, (err, result) => {
@@ -151,6 +153,66 @@ router.delete('/:id', async (req, res) => {
         const problem = await Problem.findByIdAndDelete(req.params.id);
         if (!problem) return res.status(404).json({ message: 'Problem not found' });
         res.json({ message: 'Problem deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Infobip setup
+const API_URL = 'https://n8xp98.api.infobip.com'; // Ensure this is a valid URL
+const API_KEY = 'c878bc4294d22c9ff073eca20c4839f2-13cb7d84-dd03-42e4-bbe3-066c0490986b'; // Replace with your actual API key
+const infobip = new Infobip({
+  baseUrl: API_URL,
+  apiKey: API_KEY,
+  authType: AuthType.ApiKey,
+});
+
+// Endpoint to send SMS
+app.post('/signup-sms', async (req, res) => {
+  try {
+    const response = await infobip.channels.sms.send({
+      messages: [{
+        destinations: [{ to: req.body.phoneNumber }], // Phone number from request
+        text: "You've successfully signed up for Leetr"
+      }]
+    });
+    res.status(200).send(response.data);
+    console.log('sent');
+  } catch (error) {
+    console.error('SMS sending failed:', error);
+    res.status(500).send('Failed to send SMS');
+    console.log('failed');
+  }
+});
+
+
+// Endpoint to check nextScheduled and send SMS
+router.get('/checkNextScheduled', async (req, res) => {
+    try {
+        const problems = await Problem.find({ nextScheduled: { $lte: new Date() } });
+
+        if (problems.length > 0) {
+            // Construct a message with problem details
+            let messageText = 'You have problems to complete: ';
+            problems.forEach(problem => {
+                messageText += `${problem.problemName}, `;
+            });
+
+            // Hardcoded phone number for testing
+            const phoneNumber = '16474706561';
+
+            // Send SMS with Infobip
+            const smsResponse = await infobip.channels.sms.send({
+                messages: [{
+                    destinations: [{ to: phoneNumber }],
+                    text: messageText
+                }]
+            });
+
+            res.json({ message: "SMS sent with problems to complete", smsResponse: smsResponse });
+        } else {
+            res.json({ message: "No problems to complete right now" });
+        }
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
