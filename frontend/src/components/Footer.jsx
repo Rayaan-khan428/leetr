@@ -20,13 +20,7 @@ const Logo = (props) => {
   // Logo SVG code here...
 };
 
-type SocialButtonProps = {
-  children: ReactNode;
-  label: string;
-  href: string;
-};
-
-const SocialButton = ({ children, label, href }: SocialButtonProps) => {
+const SocialButton = ({ children, label, href }) => {
   return (
     <chakra.button
       bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
@@ -56,7 +50,7 @@ const ListHeader = ({ children }) => {
     </Text>
   );
 };
-export default function LargeWithNewsletter() {
+export default function Footer() {
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
