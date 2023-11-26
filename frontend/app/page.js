@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
-import PrimarySearchAppBar from "@/components/navbar";
-import ReactVirtualizedTable, { rows } from "@/components/table";
+import PrimarySearchAppBar from "@/components/PrimarySearchAppBar";
+import ReactVirtualizedTable, { rows } from "@/components/ReactVirtualizedTable";
 
 export default function Home() {
   // Set the initial darkMode state to true
