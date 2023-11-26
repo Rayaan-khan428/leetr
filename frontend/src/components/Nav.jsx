@@ -14,7 +14,10 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import CheckProblemsButton from './CheckProblemsButton';
 
 function ThemeToggleButton() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -24,7 +27,7 @@ function ThemeToggleButton() {
 
 function UserMenu() {
   const avatarUrl = "https://avatars.dicebear.com/api/male/username.svg"; // Replace with your avatar logic
-
+  
   return (
     <Menu>
       <MenuButton as={Button} rounded="full" variant="link" cursor="pointer" minW={0}>
@@ -43,6 +46,18 @@ function UserMenu() {
 }
 
 export default function Nav() {
+
+  const [phoneNumber, setPhoneNumber] = useState('16474706561');
+  const handleSmsSignup = async () => {
+    try {
+      await axios.post('http://localhost:3000/signup-sms', { phoneNumber });
+      alert("SMS sent successfully!");
+    } catch (error) {
+      console.error('Error sending SMS:', error);
+      alert("Failed to send SMS.");
+    }
+  };
+
   return (
     <Flex
       as="nav"
@@ -64,6 +79,14 @@ export default function Nav() {
       <Stack direction="row" spacing={7} align="center">
         <ThemeToggleButton />
         <UserMenu />
+
+        {/* Sign Up for SMS Button */}
+        <Button colorScheme="blue" variant="solid" onClick={handleSmsSignup}>
+          Sign Up for SMS
+        </Button>
+
+        <CheckProblemsButton/>
+
       </Stack>
     </Flex>
   );
