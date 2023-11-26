@@ -15,6 +15,11 @@ app.use(cors({
     origin: 'chrome-extension://mpipofaiabipacleohjlmjpkhnhamefl'
 }));
 
+app.use(cors({
+    origin: 'http://localhost:3001' // Replace with the actual port your React app is running on
+}));
+
+
 // Connect to MongoDB
 mongoose.set('strictQuery', false);
 const start = async () => {
