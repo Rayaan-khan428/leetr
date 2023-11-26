@@ -36,7 +36,6 @@ function calculateNextPracticeDate(attemptCount, baseIntervalDays = 1, growthFac
     return nextPracticeDate;
 }
 
-
 // Route to get all problems
 router.get('/', async (req, res) => {
     try {
