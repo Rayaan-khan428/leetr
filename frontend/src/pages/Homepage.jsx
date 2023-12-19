@@ -44,14 +44,17 @@ export default function Homepage() {
               Your personal dashboard for tracking coding progress and more.
             </Text>
             <Link to='/main'>
-            <Button colorScheme={'blue'} size={'lg'}>Go to Dashboard</Button>
+              <Button colorScheme={'blackAlpha'} size={'lg'}>Go to Dashboard</Button>
             </Link>
           </VStack>
           <Image
             borderRadius={15}
-            src='https://img.freepik.com/premium-photo/database-programmer-playing-guitar-with-keyboard-writing-code-with-cloud-computing-programming-html-source-cheerful-smiling-developer-having-fun-acting-silly-office_482257-59031.jpg'
+            src='https://miro.medium.com/v2/resize:fit:1358/1*Z-B-f0HbvWSzH4cWntqBkQ.png'
             alt='Coding Illustration'
-            objectFit='cover'
+            objectFit='contain'
+            w={{ base: '100%', md: '50%' }} // Adjusted width for responsiveness
+            maxW={'600px'}
+            mr={0} // Removed right margin
           />
         </Stack>
 
