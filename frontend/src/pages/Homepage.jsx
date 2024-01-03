@@ -13,14 +13,14 @@ import {
   Image,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { FaChartLine, FaPuzzlePiece, FaUsers, FaRegSmileBeam } from 'react-icons/fa';
+import { FaChartLine, FaPuzzlePiece, FaComment, FaChrome} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const features = [
   { icon: FaChartLine, title: 'Custom Analytics', description: 'Gain insights into your coding habits and progress.' },
   { icon: FaPuzzlePiece, title: 'Spaced Repitition', description: 'Leverage spaced repitition to never forget a problem.' },
-  { icon: FaUsers, title: 'SMS Texts', description: 'Get SMS Texts when it is time to repeat a problem.' },
-  { icon: FaUsers, title: 'SMS Texts', description: 'Get SMS Texts when it is time to repeat a problem.' },
+  { icon: FaComment, title: 'SMS Texts', description: 'Get automatic SMS reminders when it is time to repeat a problem.' },
+  { icon: FaChrome, title: 'Chrome Extension', description: 'Seemless integration with Chrome Extension to encourage consistent tracking.' },
 ];
 
 const testimonials = [
@@ -44,7 +44,7 @@ export default function Homepage() {
               Your personal dashboard for tracking coding progress and more.
             </Text>
             <Link to='/main'>
-              <Button colorScheme={'blackAlpha'} size={'lg'}>Go to Dashboard</Button>
+              <Button colorScheme={useColorModeValue('gray')} size={'lg'}>Go to Dashboard</Button>
             </Link>
           </VStack>
           <Image
