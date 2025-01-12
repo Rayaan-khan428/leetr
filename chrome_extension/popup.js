@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.tabs.sendMessage(tabs[0].id, { message: 'getProblemTitle' }, function(response) {
                 
                 if (response && response.title) {
-                    // Update popup with the problem title
+
                     document.querySelector('h2').textContent = response.title;
                     problemTitle = response.title; // Store the problem title
                 } else if (chrome.runtime.lastError) {
